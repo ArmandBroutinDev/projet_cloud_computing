@@ -1,4 +1,4 @@
-from .utils.utils import DataHandler, FeatureRecipe, FeatureExtractor
+from utils.utils import DataHandler, FeatureRecipe, FeatureExtractor
 
 def DataManager(d:DataHandler=None, fr: FeatureRecipe=None, fe:FeatureExtractor=None):
     """

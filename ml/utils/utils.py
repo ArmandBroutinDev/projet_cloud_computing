@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
-#package utils
-#utils.py
+
 class DataHandler:
     """
         Getting data from bucket
@@ -34,7 +33,7 @@ class DataHandler:
         self.get_data()
         self.group_data()
         print("end of processing\n")
-#utils.py
+
 class FeatureRecipe:
 
     def __init__(self,df:pd.DataFrame):
@@ -111,7 +110,7 @@ class FeatureRecipe:
 import sklearn as skn
 import matplotlib as plt
 from sklearn.model_selection import train_test_split
-#utils.py
+
 class FeatureExtractor:
     """
     Feature Extractor class
@@ -147,8 +146,8 @@ class FeatureExtractor:
         return self.X_train, self.X_test, self.y_train, self.y_test
 
 from sklearn.linear_model import LinearRegression
-#package.m1
-#model.py
+import joblib
+
 class ModelBuilder:
     """
         Class for train and print results of ml model 
@@ -164,28 +163,24 @@ class ModelBuilder:
         self.line_reg.fit(X,y)
 
     def __repr__(self):
-        pass
+        return ('Model Building : model_path = {}, save {}'.format(self.model_path,self.save))
 
     def predict_test(self, X) -> np.ndarray:
         # on test sur une ligne
-        return self.line_reg.predict(X)
+        return self.line_reg.predict(X[0])
 
     def save_model(self, path:str):
-
-        #with the format : 'model_{}_{}'.format(date)
-        #joblib.dump(self, path, 3)
-        pass
+        self.save = True
+        return joblib.dump(self.line_reg,path+"/model.joblib",3)
 
     def predict_from_dump(self, X) -> np.ndarray:
-        pass
+        return self.line_reg.predict(X)
 
     def print_accuracy(self,X_test,y_test):
-        self.line_reg.predict(X_test)
         self.line_reg.score(X_test,y_test)*100
 
     def load_model(self):
         try:
-            #load model
-            pass
+            oui = joblib.load("{}/model.joblib")
         except:
             pass
