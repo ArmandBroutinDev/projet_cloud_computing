@@ -170,8 +170,8 @@ class ModelBuilder:
         return self.line_reg.predict(X[0])
 
     def save_model(self, path:str):
+        joblib.dump(self.line_reg,path+"/model.joblib",3)
         self.save = True
-        return joblib.dump(self.line_reg,path+"/model.joblib",3)
 
     def predict_from_dump(self, X) -> np.ndarray:
         return self.line_reg.predict(X)
@@ -181,6 +181,7 @@ class ModelBuilder:
 
     def load_model(self):
         try:
-            oui = joblib.load("{}/model.joblib")
+            self.line_reg = joblib.load("{}/model_base.joblib".format(self.model_path))
+            print("fichier chargé")
         except:
-            pass
+            print("fichier non trouvé ou inexistant")
